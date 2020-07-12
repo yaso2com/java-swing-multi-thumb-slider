@@ -17,7 +17,9 @@ public class AssistantUIManager {
     String componentName   = c.getClass().getName();
     
     int index = componentName.lastIndexOf(".") +1;
-    StringBuffer sb = new StringBuffer();
+    // StringBuffer sb = new StringBuffer();// is synchronised, therefore, its better to use asynchronous threads by using StringBuilder
+    StringBuilder sb = new StringBuilder();
+
     sb.append( componentName.substring(0, index) );
     
     //
@@ -69,7 +71,7 @@ public class AssistantUIManager {
     if (uiClassName == null) {
       String componentName   = c.getClass().getName();    
       int index = componentName.lastIndexOf(".") +1;
-      StringBuffer sb = new StringBuffer();
+      StringBuilder sb = new StringBuilder();
       sb.append( componentName.substring(0, index) );    
       String lookAndFeelName = UIManager.getLookAndFeel().getName();
       if (lookAndFeelName.startsWith("CDE/")) {

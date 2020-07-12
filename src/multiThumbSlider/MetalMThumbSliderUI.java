@@ -28,14 +28,17 @@ public class MetalMThumbSliderUI extends MetalSliderUI
 	  this.parent = parent;
   }
 
-  
+  // added the override method, because this method is already in the parent
+  @Override
   public void installUI(JComponent c)   {
     additonalUi = new MThumbSliderAdditionalUI(this);
     additonalUi.installUI(c);
     mThumbTrackListener = createMThumbTrackListener((JSlider) c);
     super.installUI(c);
   }
-  
+
+  // added the override method, because this method is already in the parent
+  @Override
   public void uninstallUI(JComponent c) {
     super.uninstallUI(c);
     additonalUi.uninstallUI(c);
@@ -46,15 +49,21 @@ public class MetalMThumbSliderUI extends MetalSliderUI
   protected MouseInputAdapter createMThumbTrackListener( JSlider slider ) {
     return additonalUi.trackListener;
   }
-    
+
+  // added the override method, because this method is already in the parent
+  @Override
   protected TrackListener createTrackListener( JSlider slider ) {
     return null;
   }
-  
+
+  // added the override method, because this method is already in the parent
+  @Override
   protected ChangeListener createChangeListener( JSlider slider ) {
     return additonalUi.changeHandler;
   }
 
+  // added the override method, because this method is already in the parent
+  @Override
   protected void installListeners( JSlider slider ) {
     slider.addMouseListener(mThumbTrackListener);
     slider.addMouseMotionListener(mThumbTrackListener);
@@ -64,6 +73,8 @@ public class MetalMThumbSliderUI extends MetalSliderUI
     slider.getModel().addChangeListener(changeListener);
   }
 
+  // added the override method, because this method is already in the parent
+  @Override
   protected void uninstallListeners( JSlider slider ) {
     slider.removeMouseListener(mThumbTrackListener);
     slider.removeMouseMotionListener(mThumbTrackListener);
@@ -73,20 +84,25 @@ public class MetalMThumbSliderUI extends MetalSliderUI
     slider.getModel().removeChangeListener(changeListener);
   }
 
+  // added the override method, because this method is already in the parent
+  @Override
   protected void calculateGeometry() {
     super.calculateGeometry();
     additonalUi.calculateThumbsSize();
     additonalUi.calculateThumbsLocation();
   }
-  
-  
+
+  // added the override method, because this method is already in the parent
+  @Override
   protected void calculateThumbLocation() {}
     
   
     
   
   Icon thumbRenderer;
-  
+
+  // added the override method, because this method is already in the parent
+  @Override
   public void paint( Graphics g, JComponent c ) {
     Rectangle clip = g.getClipBounds();
     Rectangle[] thumbRects = additonalUi.getThumbRects();
@@ -165,8 +181,9 @@ public class MetalMThumbSliderUI extends MetalSliderUI
       }
     }    
   }
-  
-  
+
+  // added the override method, because this method is already in the parent
+  @Override
   public void paintThumb(Graphics g) {     
     thumbRenderer.paintIcon( slider, g, thumbRect.x,     thumbRect.y );    
   }    
@@ -265,25 +282,36 @@ public class MetalMThumbSliderUI extends MetalSliderUI
       g.translate( 0, -tickBounds.y);
       
   }
-  
 
-  
+
+  // added the override method, because this method is already in the parent
+  @Override
   public void scrollByBlock(int direction) {}
+  // added the override method, because this method is already in the parent
+  @Override
   public void scrollByUnit(int direction) {}
   
   
   //  
   //  MThumbSliderAdditional
   //
+  // added the override method, because this method is already in the parent
+  @Override
   public Rectangle getTrackRect() {
     return trackRect;
-  }  
+  }
+  // added the override method, because this method is already in the parent
+  @Override
   public Dimension getThumbSize() {
     return super.getThumbSize();
-  }  
+  }
+  // added the override method, because this method is already in the parent
+  @Override
   public int xPositionForValue(int value) {
     return super.xPositionForValue( value);
-  }  
+  }
+  // added the override method, because this method is already in the parent
+  @Override
   public int yPositionForValue(int value) {
     return super.yPositionForValue( value);
   }
