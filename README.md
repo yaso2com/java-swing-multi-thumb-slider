@@ -1,6 +1,6 @@
 This is the Java Swing library for the multi thumb slider that was used to develop the RSF Slider.
 
-The functionality of the RSF slider in comparison to the multi thumb slider and some additional functionalities can be found at: 
+The functionality of the RSF slider (code at https://gitlab.com/yaso2com/rsf-slider) in comparison to the multi thumb slider and some additional functionalities can be found at: 
 
 https://www.youtube.com/watch?v=XRDAYXLw1uc
 
