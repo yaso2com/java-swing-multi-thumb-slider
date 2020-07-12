@@ -4,7 +4,6 @@ package multiThumbSlider.lib;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
@@ -23,32 +22,10 @@ public class MThumbSlider extends JSlider {
 
 	private static final String uiClassID = "MThumbSliderUI";
 
-	public final HashMap<Integer, Integer> boxHeight;
-
     // use the SliderPanel instead of the ChangeRootPanel since it gets the values from there anyway
 	public MThumbSlider(final SliderPanel parent, int n) {
-		this.boxHeight = new HashMap<Integer, Integer>();
 		createThumbs(n);
 		updateUI();
-		this.addMouseListener(createMouseAdapter(parent));
-		
-	}
-
-	// this method is instead of the Action method to create a mouse listener
-	private MouseAdapter createMouseAdapter(SliderPanel sliderPanel)
-	{
-		return new MouseAdapter()
-		{
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				String text = "";
-				for(double d: sliderPanel.getSliderValues()){
-					text +=d+",";
-				}
-				text = text.substring(0, text.length()-1);
-			};
-
-		};
 	}
 
 	protected void createThumbs(int n) {
@@ -65,7 +42,7 @@ public class MThumbSlider extends JSlider {
 
 	public void updateUI() {
 		    updateLabelUIs();
-		    setUI(new MetalMThumbSliderUI(this));
+		    setUI(new MetalMThumbSliderUI());
 	}
 
 	public String getUIClassID() {

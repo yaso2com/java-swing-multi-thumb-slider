@@ -43,6 +43,6 @@ public class ExampleFrame
 
     private void createUpperSlider()
     {
-        upperSlider = new SliderPanel(4);
+        upperSlider = new SliderPanel();
     }
 }

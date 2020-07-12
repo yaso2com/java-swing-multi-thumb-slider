@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
@@ -21,19 +20,16 @@ import javax.swing.plaf.basic.BasicSliderUI;
  */
 public class MThumbSliderAdditionalUI {
   
-  MThumbSlider  mSlider;
-  BasicSliderUI ui;
-  Rectangle[]   thumbRects;
-  int           thumbNum;
+  private MThumbSlider  mSlider;
+  private BasicSliderUI ui;
+  private Rectangle[]   thumbRects;
+  private int           thumbNum;
   private transient boolean isDragging;
-  Icon thumbRenderer;
-  
-  Rectangle trackRect;
+
+  private Rectangle trackRect;
   
   ChangeHandler changeHandler;
   TrackListener trackListener;
-  
-
   
   public MThumbSliderAdditionalUI(BasicSliderUI ui)   {
     this.ui      = ui;
@@ -57,16 +53,14 @@ public class MThumbSliderAdditionalUI {
     trackListener = null;
     changeHandler = null;
   }
-  
-      
+
   protected void calculateThumbsSize() {
     Dimension size = ((MThumbSliderAdditional)ui).getThumbSize();
     for (int i=0; i<thumbNum; i++) {
       thumbRects[i].setSize( size.width, size.height );
     }
   }
-  
-    
+
   protected void calculateThumbsLocation() {
     for (int i=0; i<thumbNum; i++) {
       if ( mSlider.getSnapToTicks() ) {
@@ -76,13 +70,11 @@ public class MThumbSliderAdditionalUI {
         }
         if (tickSpacing != 0) {      
           int sliderValue  = mSlider.getValueAt(i);
-          int snappedValue = sliderValue; 
-          //int min = mSlider.getMinimumAt(i);
-          int min = mSlider.getMinimum();                          
+          int min = mSlider.getMinimum();
           if ( (sliderValue - min) % tickSpacing != 0 ) {
             float temp = (float)(sliderValue - min) / (float)tickSpacing;
             int whichTick = Math.round( temp );
-            snappedValue = min + (whichTick * tickSpacing);
+            int snappedValue = min + (whichTick * tickSpacing);
             mSlider.setValueAt( snappedValue , i);
           }
         }
@@ -92,20 +84,17 @@ public class MThumbSliderAdditionalUI {
         int value = mSlider.getValueAt(i);
         int valuePosition = ((MThumbSliderAdditional)ui).xPositionForValue(value);
         thumbRects[i].x = valuePosition - (thumbRects[i].width / 2);
-        /////////////////////////////////////////
-        thumbRects[i].y = trackRect.y;//*i;
-        //thumbRects[i].y = trackRect.y+20-10*i;
-        
+        thumbRects[i].y = trackRect.y;
+
         
       } else {
-        int valuePosition = ((MThumbSliderAdditional)ui).yPositionForValue(mSlider.getValueAt(i));     // need
+        int valuePosition = ((MThumbSliderAdditional)ui).yPositionForValue(mSlider.getValueAt(i));
         thumbRects[i].x = trackRect.x;
         thumbRects[i].y = valuePosition - (thumbRects[i].height / 2);
       }
     }
   }
-  
-    
+
   public int getThumbNum() {
     return thumbNum;
   }
@@ -113,9 +102,6 @@ public class MThumbSliderAdditionalUI {
   public Rectangle[] getThumbRects() {
     return thumbRects;
   }
-  
-  
- 
 
   private static Rectangle unionRect = new Rectangle();
   
@@ -127,15 +113,11 @@ public class MThumbSliderAdditionalUI {
     SwingUtilities.computeUnion( rect.x, rect.y, rect.width, rect.height, unionRect ); 
     mSlider.repaint( unionRect.x, unionRect.y, unionRect.width, unionRect.height );
   }
-  
-  
+
   public Rectangle getTrackRect() {
     return ((MThumbSliderAdditional)ui).getTrackRect();
   }
-  
-  
-  
-  
+
   public class ChangeHandler implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
       if ( !isDragging ) {
@@ -145,8 +127,7 @@ public class MThumbSliderAdditionalUI {
     }
   }
   
-  
-  
+
   public class TrackListener extends MouseInputAdapter {
     protected transient int offset;
     protected transient int currentMouseX, currentMouseY;
@@ -243,11 +224,5 @@ public class MThumbSliderAdditionalUI {
       mSlider.setValueIsAdjusting(false);
       mSlider.repaint();
     }
-
-    public boolean shouldScroll(int direction) {
-      return false;
-    }
-    
   }
-  
 }

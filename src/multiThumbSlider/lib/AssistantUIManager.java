@@ -17,7 +17,7 @@ public class AssistantUIManager {
     String componentName   = c.getClass().getName();
     
     int index = componentName.lastIndexOf(".") +1;
-    // StringBuffer sb = new StringBuffer();// is synchronised, therefore, its better to use asynchronous threads by using StringBuilder
+    // StringBuffer: is synchronised, therefore, its better to use asynchronous threads by using StringBuilder => its faster
     StringBuilder sb = new StringBuilder();
 
     sb.append( componentName.substring(0, index) );
@@ -31,7 +31,7 @@ public class AssistantUIManager {
     
     String lookAndFeelName = UIManager.getLookAndFeel().getName();
     if (lookAndFeelName.startsWith("CDE/")) {
-      lookAndFeelName = lookAndFeelName.substring(4,lookAndFeelName.length());
+      lookAndFeelName = lookAndFeelName.substring(4);
     }
     sb.append( lookAndFeelName );    
     sb.append( componentName.substring(index) );    
@@ -62,30 +62,4 @@ public class AssistantUIManager {
     }
     return null;
   }
-
-  
-  public static void setUIName(JComponent c) {
-    String key = c.getUIClassID();
-    String uiClassName = (String)UIManager.get(key);
-    
-    if (uiClassName == null) {
-      String componentName   = c.getClass().getName();    
-      int index = componentName.lastIndexOf(".") +1;
-      StringBuilder sb = new StringBuilder();
-      sb.append( componentName.substring(0, index) );    
-      String lookAndFeelName = UIManager.getLookAndFeel().getName();
-      if (lookAndFeelName.startsWith("CDE/")) {
-        lookAndFeelName = lookAndFeelName.substring(4,lookAndFeelName.length());
-      }
-      sb.append( lookAndFeelName );    
-      sb.append( key );    
-      UIManager.put(key, sb.toString());      
-    }       
-  }
-  
-
-  public AssistantUIManager() {
-  }
-  
-  
 }

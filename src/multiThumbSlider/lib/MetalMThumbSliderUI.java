@@ -13,19 +13,14 @@ import javax.swing.plaf.metal.*;
  * @version 1.0 09/08/99
  */
 public class MetalMThumbSliderUI extends MetalSliderUI 
-  implements MThumbSliderAdditional {
+  implements MThumbSliderAdditional
+{
+  private Icon thumbRenderer;
+  private MThumbSliderAdditionalUI additonalUi;
+  private MouseInputAdapter mThumbTrackListener;
 
-  MThumbSliderAdditionalUI additonalUi;
-  MouseInputAdapter mThumbTrackListener;
-  final MThumbSlider parent;
-
-  public static ComponentUI createUI(JComponent c)    {
-    return new MetalMThumbSliderUI((MThumbSlider)c);
-  }
-
-  
-  public MetalMThumbSliderUI(MThumbSlider parent)   {
-	  this.parent = parent;
+  // default constructor
+  public MetalMThumbSliderUI() {
   }
 
   // added the override method, because this method is already in the parent
@@ -97,16 +92,13 @@ public class MetalMThumbSliderUI extends MetalSliderUI
   protected void calculateThumbLocation() {}
     
   
-    
-  
-  Icon thumbRenderer;
 
   // added the override method, because this method is already in the parent
   @Override
   public void paint( Graphics g, JComponent c ) {
     Rectangle clip = g.getClipBounds();
     Rectangle[] thumbRects = additonalUi.getThumbRects();
-    thumbRect = thumbRects[0];    
+    thumbRect = thumbRects[0];
     int thumbNum = additonalUi.getThumbNum();
     
     if ( slider.getPaintTrack() && clip.intersects( trackRect ) ) {
@@ -120,9 +112,8 @@ public class MetalMThumbSliderUI extends MetalSliderUI
         
         Point t1 = new Point(0,0);
         Point t2 = new Point(0,0);
-        Rectangle maxThumbRect = new Rectangle(thumbRect);
-        thumbRect = maxThumbRect;
-        
+        thumbRect = new Rectangle(thumbRect);
+
         if ( slider.getOrientation() == JSlider.HORIZONTAL ) {
           t2.y = (trackRect.height - 1) - getThumbOverhang();
           t1.y = t2.y - (getTrackWidth()- 1);
@@ -160,7 +151,6 @@ public class MetalMThumbSliderUI extends MetalSliderUI
     }
     if ( slider.getPaintTicks() && clip.intersects( tickRect ) ) {
       paintTicks( g );
-      paintBoxes( g );
     }
     if ( slider.getPaintLabels() && clip.intersects( labelRect ) ) {
       paintLabels( g );
@@ -233,56 +223,7 @@ public class MetalMThumbSliderUI extends MetalSliderUI
 		    t2.y - t1.y );
       }
     }
-  }  
-
-  protected void paintBox( Graphics g, int y, int xFrom, int xTo, int height ,int i) {
-      g.setColor(Color.black);
-      g.fillRect(xFrom, y, xTo-xFrom, height);
-      if (height != 0){
-          String str =  Integer.toString(i);
-          g.drawString( str, xTo -20, height - 27);// the hight is -ve so i am going over the box by 3
-      }
   }
-
-  void paintBoxes(Graphics g){
-	  Rectangle tickBounds = tickRect;
-	  g.translate( 0, tickBounds.y);
-
-      int value = slider.getMinimum();
-      int xPos = 0;
-      int xPos2 = 0;
-      int MCSno = 0 ;
-      int i=0;
-      if ( slider.getMinorTickSpacing() > 0 ) {
-          while ( value < slider.getMaximum() ) {
-              xPos = xPositionForValue( value );
-              xPos2 = xPositionForValue( value + slider.getMinorTickSpacing() );
-              //Get height of the box
-              /*Integer height = this.parent.boxHeight.get(value);
-              System.out.println("Box (value, height): " + value + " " + height);
-              if(height == null){
-            	  height = 1;
-              }
-              // function to get mcsno
-              try {
-               Integer MCSnoInRange = getMCSnoInRange(value);
-                System.out.println("MCSnoInRange (value, MCSnoInRange): " + value + " " + MCSnoInRange);
-               if (MCSnoInRange != null) {
-                    paintBox( g,TICK_BUFFER-30, xPos, xPos2, -height, MCSnoInRange.intValue());
-                }
-              }catch (Throwable thr) {
-                  System.out.println("Value: " + value);
-                  System.out.println(thr.getMessage());
-              }
-               */
-              value += slider.getMinorTickSpacing();
-              //this.parent.getm
-          }
-      }
-      g.translate( 0, -tickBounds.y);
-      
-  }
-
 
   // added the override method, because this method is already in the parent
   @Override
@@ -315,10 +256,5 @@ public class MetalMThumbSliderUI extends MetalSliderUI
   public int yPositionForValue(int value) {
     return super.yPositionForValue( value);
   }
-  
-  /*public int getMCSnoInRange(int box){
-    return this.parent.getMCSnoInRange(box);
-  }
-*/
 }
 
