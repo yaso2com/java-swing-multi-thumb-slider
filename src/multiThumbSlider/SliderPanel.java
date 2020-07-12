@@ -14,14 +14,12 @@ public class SliderPanel extends JPanel {
 
 	private final JLabel text;
 	private final MThumbSlider slider;
-	private final ChangeRootPanel changeRootPanel;
 
-	public SliderPanel(final ChangeRootPanel crp, int number) {
-		this.changeRootPanel = crp;
+	public SliderPanel(int number) {
 		this.text = new JLabel();
 
 
-		this.slider = new MThumbSlider(crp, 4);
+		this.slider = new MThumbSlider(this, 4);
 		this.slider.setPaintTicks(true);
 		this.slider.setPaintLabels(true);
 		this.slider.setSnapToTicks(true);
@@ -91,7 +89,7 @@ public class SliderPanel extends JPanel {
 		Pattern p = Pattern.compile(".*[eE](.*)");
 		Matcher m = p.matcher((new Double(value)).toString());
 		if (m.matches()) {
-			expValue = Integer.valueOf(m.group(1));
+			expValue = Integer.parseInt(m.group(1));
 		}
 
 		this.slider.setValueAt(expValue, index);
@@ -105,53 +103,13 @@ public class SliderPanel extends JPanel {
 		int exponent = this.slider.getValueAt(index);
 		return Math.pow(10, exponent);
 	}
-	/*public void setSliderBoxHeight(int box, int value) {
-		this.slider.boxHeight.put(box, new Integer(value));
+
+	public double[] getSliderValues(){
+		return new double[]{
+				getValue(0),
+				getValue(1),
+				getValue(2),
+				getValue(3)
+		};
 	}
-*/
-        
-       /* public void setMCSnoInRange(String MCSnoInRange) {
-                this.MCSnoInRange = MCSnoInRange;
-        }
-        
-        public String getMCSnoInRange() {
-                    return this.MCSnoInRange;
-        }
-        */
-
-        /*public void setMCSnoInRange(int box, int MCSnoInRange) {
-            System.out.println("box MCSnoInRange boxHeight " + box + " " + MCSnoInRange + " " + computeHistogramHeight(MCSnoInRange));
-            System.out.flush();
-                this.setSliderBoxHeight(box, computeHistogramHeight(MCSnoInRange));
-                this.slider.setMCSnoInRange(box, MCSnoInRange);
-
-        }
-
-        public int getMCSnoInRange(int box) {
-                    return this.slider.getMCSnoInRange(box);
-        }
-
-
-        public int computeHistogramHeight(int MCSnoInRange) {
-            int boxHeight = 0;
-
-                if (MCSnoInRange > 0) {
-                    boxHeight += 5;
-                }
-                if (MCSnoInRange > 25) {
-                    boxHeight += 5;
-                }
-                if (MCSnoInRange > 50) {
-                    boxHeight += 5;
-                }
-                if (MCSnoInRange > 75) {
-                    boxHeight += 5;
-                }
-                if (MCSnoInRange > 100) {
-                    boxHeight += 5;
-                }
-            return boxHeight;
-
-        }
-         */
 }

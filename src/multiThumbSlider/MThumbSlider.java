@@ -2,15 +2,14 @@
 package multiThumbSlider;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.Icon;
 import javax.swing.JSlider;
-
-import de.vfes.gui.actions.Actions;
-import de.vfes.gui.contentpanel.changerootpanel.ChangeRootPanel;
 
 /**
  * @version 1.0 09/08/99
@@ -25,15 +24,31 @@ public class MThumbSlider extends JSlider {
 	private static final String uiClassID = "MThumbSliderUI";
 
 	public final HashMap<Integer, Integer> boxHeight;
-        private HashMap<Integer, Integer> MCSnoInRange;
-	
-	public MThumbSlider(final ChangeRootPanel parent, int n) {
+
+    // use the SliderPanel instead of the ChangeRootPanel since it gets the values from there anyway
+	public MThumbSlider(final SliderPanel parent, int n) {
 		this.boxHeight = new HashMap<Integer, Integer>();
-		this.MCSnoInRange = new HashMap<Integer, Integer>();
 		createThumbs(n);
 		updateUI();
-		this.addMouseListener(Actions.SLIDER_ACTION(parent, this));
+		this.addMouseListener(createMouseAdapter(parent));
 		
+	}
+
+	// this method is instead of the Action method to create a mouse listener
+	private MouseAdapter createMouseAdapter(SliderPanel sliderPanel)
+	{
+		return new MouseAdapter()
+		{
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				String text = "";
+				for(double d: sliderPanel.getSliderValues()){
+					text +=d+",";
+				}
+				text = text.substring(0, text.length()-1);
+			};
+
+		};
 	}
 
 	protected void createThumbs(int n) {
@@ -49,21 +64,8 @@ public class MThumbSlider extends JSlider {
 	}
 
 	public void updateUI() {
-		 
-		  // AssistantUIManager.setUIName(this);
-		    //super.updateUI();
-		        
-		    
-		    // another way
-		    //
-		    updateLabelUIs();    
-		    //setUI(AssistantUIManager.createUI(this));
-		    //setUI(new BasicMThumbSliderUI(this));
+		    updateLabelUIs();
 		    setUI(new MetalMThumbSliderUI(this));
-		    //setUI(new MotifMThumbSliderUI(this));    
-		    
-
-		 
 	}
 
 	public String getUIClassID() {
@@ -113,10 +115,6 @@ public class MThumbSlider extends JSlider {
 		return thumbRenderers[index];
 	}
 
-	public void setThumbRendererAt(Icon icon, int index) {
-		thumbRenderers[index] = icon;
-	}
-
 	public Color getFillColorAt(int index) {
 		return fillColors[index];
 	}
@@ -128,22 +126,4 @@ public class MThumbSlider extends JSlider {
 	public Color getTrackFillColor() {
 		return trackFillColor;
 	}
-
-	public void setTrackFillColor(Color color) {
-		trackFillColor = color;
-	}
-
-        /*public void setMCSnoInRange(int box, int MCSnoInRange) {
-                System.out.println("box :" + box + "MCSnoInRange" + MCSnoInRange);
-                MCSnoInRange=0;
-                this.MCSnoInRange.put(box, new Integer(MCSnoInRange));
-
-        }
-
-        public int getMCSnoInRange(int box) {
-                    return this.MCSnoInRange.get(box);
-        }
-
-         */
-
 }
