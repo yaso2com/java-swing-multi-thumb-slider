@@ -1,5 +1,5 @@
 /* (swing1.1.1) */
-package multiThumbSlider;
+package multiThumbSlider.lib;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

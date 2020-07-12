@@ -1,4 +1,4 @@
-package multiThumbSlider;
+package multiThumbSlider.lib;
 
 /* (swing1.1.1) */
 
