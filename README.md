@@ -1,6 +1,7 @@
 **Description of the MT Slider:**
 
 This code is from the Java Swing library for implementing the Multi Thumb slider, and was used to develop the RSF Slider.
+
 Derived from http://www.crionics.com/products/opensource/faq/swing_ex/SwingExamples.html
 
 **Description of the RSF Slider:**
