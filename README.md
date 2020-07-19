@@ -155,6 +155,16 @@ Please do not forget to cite my work using the following bibtex:
   booktitle={2017 13th International Wireless Communications and Mobile Computing Conference (IWCMC)}, 
   title={Data redundancy may lead to unreliable intrusion detection systems}, 
   year={2017},
-  volume={},
-  number={},
-  pages={1897-1902}}
+  pages={1897-1902}
+  }
+
+12. @INPROCEEDINGS {AlZokari-Slider-2020,
+        author = {Yasmin Al-Zokari and Peter Dannenmann and Hans Hagen and Dirk Zeckzer},
+        title = {An Enhanced Interaction and Filterting Widget},
+        booktitle = {International Conferences Computer Graphics, Visualization, Computer Vision and Image Processing 2020},
+        year = {2020},
+        month = {07/2020},
+        pages = {79-90},
+        address = {Zagreb, Croatia},
+        url = {https://www.cgv-conf.org/wp-content/uploads/2020/07/02_202011L010_F074.pdf}
+}
